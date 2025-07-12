@@ -14,13 +14,11 @@ const app = express();
 
 
 app.use(cors({
-  origin: [
-    'https://fatoufrontend.vercel.app',
-    'https://fatoujeng.onrender.com' //or self-access
-  ],
+  origin: ['https://fatoufrontend.vercel.app'], // your frontend domain
   methods: ['POST', 'GET', 'PUT', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization', 'Role']
 }));
+
 
 app.use(express.json())
 
