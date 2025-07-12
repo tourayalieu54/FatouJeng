@@ -14,7 +14,7 @@ const app = express();
 
 
 app.use(cors({
-  origin: ['https://fatoufrontend.vercel.app'], // your frontend domain
+  origin: ['https://frontend-hazel-xi.vercel.app'], // your frontend domain
   methods: ['POST', 'GET', 'PUT', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization', 'Role']
 }));
