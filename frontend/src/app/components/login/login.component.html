@@ -1,0 +1,21 @@
+<div class="main-container">
+    <h3 class="header">Welcome back!</h3>
+    <form class="form" [formGroup]="loginForm" (ngSubmit)="login()">
+        <h4 class="form-header">Please login below!</h4>
+        <hr>
+        <div class="form-group">
+            <label for="email" class="form-label text-dark">Email Address</label>
+            <input formControlName="emailAddress" id="email" type="text" class="form-control" placeholder="your email address here e.g examples656@utg.com">
+        </div>
+        <div class="form-group">
+            <label for="password" class="form-label text-dark">Password</label>
+            <input formControlName="password" id="password" type="password" class="form-control" placeholder="your password here">
+        </div>
+        <div class="form-group button-container">
+            <button type="submit" class="submit-button">Submit</button>
+        </div>
+        <div style="text-align: center;">
+            <p>You don't have an account? please <a href="/signup">signup</a></p>
+        </div>
+    </form>
+</div>
