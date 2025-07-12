@@ -13,7 +13,7 @@ connectDB();
 const app = express();
 
 app.use(cors({
-    origin: 'http://localhost:4200',
+    origin: 'https://fatoujeng.onrender.com',
     methods: ['POST', 'GET', 'PUT', 'DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization', 'Role']
 }));
