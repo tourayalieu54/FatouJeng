@@ -1,0 +1,134 @@
+.main-container{
+    min-height: 90vh;
+}
+
+#logout-button:hover{
+    color: black !important;
+}
+
+.search-add-form{
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    align-content: center;
+    padding: 4rem 0;
+}
+
+.search-form{
+    width: 50%;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.add-button{
+    width: 15rem;
+    border-radius: 1rem;
+    margin-left: 3rem;
+    border: 1px solid lavenderblush;
+    box-shadow: inset 5px 5px 8px grey;
+}
+
+.add-button:hover{
+    scale: 1.01;
+    transition: 0.1s;
+    border: 1px solid grey;
+}
+
+.search-form label{
+    font-size: large;
+}
+
+.search-form input{
+    width: 75%;
+    padding: 1rem 1rem;
+    border-radius: 1rem;
+    border: 1px solid grey;
+    font-size: medium;
+}
+
+.cancel-submit-buttons{
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.btn{
+    padding: 0.8rem 1rem;
+    
+}
+
+.btn:hover{
+    box-shadow: inset 5px 5px 8px white;
+    background-color: antiquewhite;
+    color: black;
+}
+
+.action-buttons{
+    display: flex;
+    gap: 1rem;
+}
+
+.confirm-delete-buttons{
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.date-input-container{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.2rem 0.4rem;
+}
+
+
+.date-filter-input{
+    width: 20%;
+}
+
+thead th {
+  background-color: #212529 !important; /* Bootstrap's bg-dark */
+}
+thead th {
+  color: #fff !important; /* Bootstrap's text-white */
+}
+
+.label-on-border {
+  position: absolute;
+  top: -0.6rem;
+  left: 1rem;
+  background-color: white;
+  padding: 0 0.25rem;
+  font-size: 0.85rem;
+  z-index: 1;
+}
+
+.center-btn {
+  height: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 2px 2px;
+}
+
+@media screen and (max-width: 768px) {
+    .table-container {
+        overflow-x: auto; /*Keeps scrolling on smaller screens */
+        display: block;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .search-add-form{
+        flex-direction: column;
+        align-items: center;
+    }
+    .search-form{
+        width: 100%;
+    }
+    .add-button{
+        width: 100%;
+        margin-left: 0;
+        margin-bottom: 2rem;
+        padding: 1rem 0;
+    }
+}

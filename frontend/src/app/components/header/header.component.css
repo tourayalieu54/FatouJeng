@@ -1,0 +1,39 @@
+
+.navbar .nav-link {
+    color: #e3f2fd;
+    font-size: large;
+}
+
+.navbar-brand {
+    color: #e3f2fd !important;
+}
+
+.container-fluid{
+    display: flex;
+    justify-content: space-between;
+}
+
+.container-fluid > a{
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.collapse{
+    justify-content: flex-end;
+    margin-right: 1rem;
+}
+
+#logo{
+    border-radius: 50%;
+    background-color: #e3f2fd;
+    width: 10%;
+}
+
+@media (max-width: 480px) {
+    .container-fluid{
+        display: flex;
+        flex-wrap: wrap;
+    }
+    
+}

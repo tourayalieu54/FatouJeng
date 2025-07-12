@@ -1,0 +1,69 @@
+.main-container{
+    background: url('/login-background.jpg') no-repeat center center/cover;
+    min-height: 100vh;
+    width: 100%;
+    background-color: rgba(0,0,0,0.5);
+    background-blend-mode: overlay;
+}
+
+.header{
+    color: white;
+    text-align: center;
+    padding: 2rem;
+}
+
+.form-header{
+    text-align: center;
+}
+
+.form{
+    background-color: whitesmoke;
+    width: 35%;
+    min-height: 60%;
+    margin: 5px auto;
+    padding: 3rem;
+    border-radius: 1rem;
+    box-shadow: 5px 5px 6p white;
+}
+
+.form-group{
+    margin: 2rem auto;
+}
+
+.form-label{
+    font-size: large;
+}
+
+.form-control{
+    padding: 0.8rem 0.4rem;
+}
+
+.button-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.submit-button{
+    width: 60%;
+    padding: 0.6rem 0;
+    border-radius: 0.6rem;
+    background-color: lavender;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.submit-button:hover{
+    background-color: rgb(178, 178, 184);
+    scale: 1.02;
+    transition: 0.04s;
+}
+
+@media (max-width: 768px) {
+    .form{
+        width: 90%;
+    }
+
+    .main-container{
+        max-height: 60vh;
+    }
+}

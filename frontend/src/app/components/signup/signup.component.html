@@ -1,0 +1,26 @@
+<div class="signup-container">
+    <h3 class="header"><strong>Please register below!</strong></h3>
+    <form [formGroup]="signupForm" class="form" (ngSubmit)="onSubmit()">
+        <h4 class="note-message"><em>Note: Your employee email should be your account&apos;s email!</em></h4>
+        <div class="form-group">
+            <label for="emailAddress" class="form-label"><strong>Email Address:</strong></label>
+            <input formControlName="emailAddress" id="emailAddress" type="text" class="form-control" required placeholder="e.g example234@utg.com">
+        </div>
+        <div class="form-group">
+            <label for="password" class="form-label"><strong>Password:</strong></label>
+            <input formControlName="password" id="password" type="password" class="form-control" placeholder="xxxxxxxxxxxxx">
+        </div>
+        <div *ngIf="passwordMismatch">
+            <p>Passwords do not match!</p>
+        </div>
+        <div class="form-group">
+            <label for="re-password" class="form-label"><strong>Password:</strong></label>
+            <input formControlName="repeatPassword" id="re-password" type="password" class="form-control" placeholder="xxxxxxxxxxxxx">
+        </div>
+        <div class="form-group">
+            <div class="button-container">
+                <button class="submit-button" type="submit">Submit</button>
+            </div>
+        </div>
+    </form>
+</div>

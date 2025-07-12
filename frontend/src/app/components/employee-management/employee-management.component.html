@@ -1,0 +1,139 @@
+<div class="main-container">
+    <div *ngIf="!showEmployeeAttendance" class="container-fluid">
+        <div class="d-flex justify-content-end pt-2">
+            <button (click)="logout()" id="logout-button" class="btn btn-warning text-white">Logout</button>
+        </div>
+        <div  class="search-add-form">
+            <button class="add-button" (click)="initiateAddEmployee()">Add Employee</button>
+            <div class="search-form" [formGroup]="searchForm">
+                <label for="searchValue"><b>Search:</b></label>
+                <input formControlName="searchValue" id="searchValue" type="text" placeholder="Search employee by email address" (input)="filterEmployees()">
+            </div>
+        </div>
+        <div class="table-container">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th><b>#</b></th>
+                        <th><b>Staff ID</b></th>
+                        <th><b>First Name</b></th>
+                        <th><b>Middle Name</b></th>
+                        <th><b>Last Name</b></th>
+                        <th><b>Email Address</b></th>
+                        <th><b>Position</b></th>
+                        <th><b>Actions</b></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let employee of filteredEmployees; let i=index;">
+                        <td>{{i+1}}</td>
+                        <td>{{employee?.mainId.toString().padStart(8, 0)}}</td>
+                        <td>{{employee?.firstName}}</td>
+                        <td>{{employee?.middleName || ''}}</td>
+                        <td>{{employee?.lastName}}</td>
+                        <td>{{employee?.emailAddress}}</td>
+                        <td>{{employee?.position}}</td>
+                        <td class="action-buttons">
+                            <button class="btn btn-warning" (click)="initiateUpdate(employee)">Update</button>
+                            <button (click)="initiateDelete(employee)" class="btn btn-danger">Delete</button>
+                            <button class="btn btn-info" (click)="fetchAttendance(employee)">View Attendance</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div *ngIf="filteredEmployees.length===0">
+            <p style="font-size: x-large">No employee found!</p>
+        </div>
+        <div class="modal fade" tabindex="-1" [ngClass]="{'show': showModal}" [style.display]="showModal ? 'block' : 'none'">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header" style="background-color: #000; color:#ffffff">
+                        <h3 *ngIf="wannaAdd">Adding Employee</h3>
+                        <h3 *ngIf="wannaUpdate">Updating Employee Info</h3>
+                        <h3 *ngIf="wannaDelete">Confirm Employee Delete</h3>
+                        <input type="button" style="background-color:rgb(236, 46, 13);" class="btn-close" (click)="closeModal()">
+                    </div>
+                    <div class="modal-body">
+                        <form (ngSubmit)="decideAddOrUpdate()" [formGroup]="employeeForm" *ngIf="wannaAdd || wannaUpdate">
+                            <div class="form-group mb-3">
+                                <label for="firstName" class="form-label"><b>First Name:</b></label>
+                                <input id="firstName" formControlName="firstName" type="text" class="form-control" required placeholder="Enter your first name e.g Fatima">
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="middleName" class="form-label"><b>Middle Name:</b></label>
+                                <input id="middleName" type="text" class="form-control" formControlName="middleName" placeholder="Enter your middle name if you have one"> 
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="lastName" class="form-label"><b>Last Name:</b></label>
+                                <input formControlName="lastName" id="lastName" type="text" class="form-control" required placeholder="Enter employee's last name here">
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="emailAddress" class="form-label"><b>Email Address:</b></label>
+                                <input id="emailAddress" formControlName="emailAddress" type="text" class="form-control" required placeholder="Enter employee's email addess here e.g example790@utg.com">
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="position" class="form-label"><b>Position:</b></label>
+                                <input id="position" formControlName="position" type="text" class="form-control" required placeholder="Enter employee's position here">
+                            </div>
+                            <div class="cancel-submit-buttons mb-5">
+                                <button [disabled]="employeeForm.invalid" type="submit" class="btn btn-secondary">Submit</button>
+                                <button type="button" class="btn btn-warning" (click)="closeModal()">Cancel</button>
+                            </div>
+                        </form>
+                        <div *ngIf="wannaDelete" class="confirm-delete">
+                            <h4>Are you sure you want to delete this employee? <em>This action cannot be undone!</em></h4>
+                            <ul>
+                                <li><b>Full Name: </b>{{deletingEmployee?.firstName}} {{deletingEmployee?.middleName || ''}} {{deletingEmployee?.lastName}}</li>
+                                <li><b>Email Address: </b>{{deletingEmployee?.emailAddress}}</li>
+                                <li><b>Position: </b>{{deletingEmployee?.position}}</li>
+                            </ul>
+                            <div class="confirm-delete-buttons">
+                                <button class="btn btn-danger" (click)="deleteEmployee()">Yes</button>
+                                <button class="btn btn-warning" (click)="closeModal()">No</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="showEmployeeAttendance">
+        <div>
+            <button class="btn btn-secondary center-btn" (click)="setShowAttendanceFalse()">back</button>
+            <h3 class="text-center">Employee Attendace Record</h3>
+            <hr style="height: 2px;" class="w-75 mx-auto bg-dark border-0">
+            <div class="date-input-container">
+                <div>
+                    <p><b>Employee Name:</b> {{employee?.firstName}} {{employee?.middleName || ''}} {{employee?.lastName}}</p>
+                    <p><b>Employee Position:</b> {{employee?.position}}</p>
+                </div>
+                <div class="position-relative date-filter-input">
+                    <label for="name" class="form-label text-secondary label-on-border">search a specific date</label>
+                    <input type="date" class="form-control" [(ngModel)]="selectedDate" (change)="getAttendanceByDate()" placeholder="Select a date">
+                </div>
+            </div>
+            <p *ngIf="!attendanceRecord">No attendance record found for this employee!</p>
+            <div class="p-3">
+                <table *ngIf="attendanceRecord" class="table table-striped">
+                    <thead>
+                        <tr class="bg-dark text-white">
+                            <th><b>Date</b></th>
+                            <th><b>Check In Time</b></th>
+                            <th><b>Check Out Time</b></th>
+                            <th><b>Status</b></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let record of attendanceRecord">
+                            <td>{{record.date | date: 'shortDate'}}</td>
+                            <td>{{record.clockInTime}}</td>
+                            <td>{{record.clockOutTime}}</td>
+                            <td>{{record.status}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
