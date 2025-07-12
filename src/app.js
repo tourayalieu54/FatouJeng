@@ -12,10 +12,14 @@ connectDB();
 // express app
 const app = express();
 
+
 app.use(cors({
-    origin: 'https://fatoujeng.onrender.com',
-    methods: ['POST', 'GET', 'PUT', 'DELETE'],
-    allowedHeaders: ['Content-Type', 'Authorization', 'Role']
+  origin: [
+    'https://fatoufrontend.vercel.app',
+    'https://fatoujeng.onrender.com' //or self-access
+  ],
+  methods: ['POST', 'GET', 'PUT', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'Role']
 }));
 
 app.use(express.json())
