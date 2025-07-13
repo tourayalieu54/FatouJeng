@@ -6,7 +6,7 @@ import { authMiddleware, authorizeRole } from '../middlewares/middleware.js';
 const router = express.Router();
 
 // All routes require authentication
-// router.use(authMiddleware);
+ router.use(authMiddleware);
 
 // GET all employees
 router.get('/employees', async (req, res) => {
