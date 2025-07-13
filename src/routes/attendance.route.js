@@ -92,7 +92,9 @@ router.put('/clock-out/:mainId', async (req, res) => {
 // PUT edit attendance
 router.put('/edit', async (req, res) => {
   try {
-    const updated = await Attendance.findByIdAndUpdate(req.body._id, req.body, { new: true });
+    const attendance = await Attendance.findOne({mainId: req.body.mainId});
+    if (!attendance) return res.status(404).json({ message: 'Attendance not found' });
+    const updated = await Attendance.findByIdAndUpdate(attendance._id, req.body, { new: true });
     res.json(updated);
   } catch {
     res.status(400).json({ message: 'Failed to update attendance' });

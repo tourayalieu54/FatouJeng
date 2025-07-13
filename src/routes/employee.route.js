@@ -41,7 +41,7 @@ router.get('/employees/email/:emailAddress', async (req, res) => {
 });
 
 // ADMIN only: Create
-router.post('/employees'/*, authorizeRole(['ADMIN'])*/, async (req, res) => {
+router.post('/employees', authorizeRole(['ADMIN']), async (req, res) => {
   try {
     const emp = new Employee(req.body);
     await emp.save();
@@ -54,7 +54,7 @@ router.post('/employees'/*, authorizeRole(['ADMIN'])*/, async (req, res) => {
 // ADMIN only: Update
 router.put('/employees/:id', authorizeRole(['ADMIN']), async (req, res) => {
   try {
-    const existing = await Employee.findById(req.params.id);
+    const existing = await Employee.findOne({mainId: req.params.id});
     if (!existing) return res.status(404).json({ message: 'Employee not found' });
 
     // Sync AppUser email if changed
@@ -77,7 +77,7 @@ router.put('/employees/:id', authorizeRole(['ADMIN']), async (req, res) => {
 // ADMIN only: Delete
 router.delete('/employees/:id', authorizeRole(['ADMIN']), async (req, res) => {
   try {
-    const emp = await Employee.findById(req.params.id);
+    const emp = await Employee.findOne({mainId: req.params.id});
     if (!emp) return res.status(404).json({ message: 'Employee not found' });
 
     const userAcc = await AppUser.findOne({ emailAddress: emp.emailAddress });
